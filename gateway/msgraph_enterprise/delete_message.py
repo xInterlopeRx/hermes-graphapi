@@ -1,0 +1,18 @@
+"""Delete a Microsoft Graph message."""
+
+from __future__ import annotations
+
+import json
+from typing import Any
+
+from ._helpers import error_result
+from ._write_helpers import client_user, required_id
+
+
+async def delete_message(args: dict[str, Any], **kwargs: Any) -> str:
+    try:
+        message_id = required_id(args, "message_id")
+        client, user = client_user(args)
+        return json.dumps(client.delete_json(f"users/{user}/messages/{message_id}"))
+    except Exception as exc:
+        return error_result(exc)
