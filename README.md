@@ -57,4 +57,18 @@ python -m pip install pytest requests
 python -m pytest -q
 ```
 
-Tests use mocked HTTP sessions and never contact Microsoft Graph.
+The committed automated focused suite contains 63 tests. It uses mocked HTTP
+sessions and does not contact Microsoft Graph.
+
+## Live Microsoft Graph validation
+
+Development validation also exercised the real app-only OAuth/token path and
+real Microsoft Graph endpoints:
+
+- Mailbox message listing succeeded.
+- Calendar read succeeded and returned an empty result.
+- Contacts read returned HTTP 403.
+- Creating a blank draft was attempted but returned HTTP 403 because the
+  `Mail.ReadWrite` application permission and admin consent were not available.
+
+No message was sent. No secret or token values were logged or committed.
